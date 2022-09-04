@@ -1,0 +1,46 @@
+.img-box {
+   background: rgb(101, 101, 101);
+   position: relative;
+   top: 100px;
+   height: 50px;
+}
+
+.photo {
+   position: relative;
+   left: 30px;
+}
+
+.profile-box {
+   background: rgb(230, 230, 230);
+   height: 250px;
+   margin-bottom: 100px;
+}
+
+.signimg {
+   border-radius: 100px;
+   position: relative;
+   bottom: 15px;
+}
+
+#nickname2 {
+   position: relative;
+   left: 20px;
+   top: 20px;
+   padding-bottom: 50px;
+   color: rgb(77, 71, 71);
+}
+
+#list-box {
+   margin-bottom: 30px;
+   position: relative; left: 160px;
+}
+
+#list {
+   display: flex;
+   justify-content: center;
+   margin-bottom: 150px;
+}
+
+#list2 {
+   text-align: center;
+}

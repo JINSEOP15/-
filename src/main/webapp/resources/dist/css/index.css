@@ -1,0 +1,57 @@
+@media (max-width:768px) {}
+@media all and (min-width:768px) and (max-width:1080px) {}
+
+@media all and (min-width: 768px) and (max-width:991px){
+  .btn-outline-primary{
+     position: relative; right: 60px;
+     width: 152px;
+  }
+}
+
+ @media all and (min-width:1200px) and (max-width:1399px){
+   #sec{
+    position: relative; right: 70px;
+   }
+  
+ }
+
+#slider{
+  background-color: rgb(72, 166, 144); 
+  padding-top: 50px;
+  padding-bottom: 10px;
+  }
+
+#img{
+    margin-left: 50px;
+    height: 400px;
+}
+ 
+ #sec2{
+   position: relative; right: 0px;
+    height: 600px;
+  }
+ 
+ #sec-1{
+  position: relative; top: 80px;
+   height: 450px;
+   width: 300px;
+ }
+ 
+ #sec-2{
+   position: relative; top: 80px;
+    height: 450px;
+    width: 300px;
+  }
+ 
+  #sec2-1{
+   position: relative; top: 80px; left: 350px;
+    height: 470px;
+    width: 600px;
+    background-color: silver; 
+  }
+  table {
+    height: 410px;
+  }
+  #tr{
+   border-bottom: 1px solid black;
+  }

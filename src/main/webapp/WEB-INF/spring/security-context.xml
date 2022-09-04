@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+		xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		xmlns:security="http://www.springframework.org/schema/security"
+		xsi:schemaLocation="http://www.springframework.org/schema/security 
+							http://www.springframework.org/schema/security/spring-security.xsd
+							http://www.springframework.org/schema/beans 
+							http://www.springframework.org/schema/beans/spring-beans.xsd">	
+							
+<bean id="bcryptPasswordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder" />																		
+<bean id="SuccessHandler" class="com.keduit.security.CustomLoginSuccessHandler"></bean>
+<bean id="customUserDetailsService" class="com.keduit.security.CustomUserDetailsService"></bean>
+						
+<security:http use-expressions="true">
+	<security:csrf disabled="true" />
+	<!-- 유져와 관리자 모두 접급가능한 url -->
+	<security:intercept-url pattern="/board/user/mypage" access="hasAnyRole('ROLE_USER','ROLE_ADMIN')"/>
+	<!-- 관리자만 접근가능한 url -->
+	<security:intercept-url pattern="/board/admin/management" access="hasRole('ROLE_ADMIN')"/>
+	<!-- 커스텀로그인폼 경로 지정, 로그인 성공시 이동경로 지정 -->
+	<security:form-login login-page="/board/user/login" authentication-success-handler-ref="SuccessHandler"/>
+	<!-- 접근제한폼 경로 지정 -->
+	<!-- <security:access-denied-handler error-page="/board/accessError"/> -->
+	<!-- 커스텀로그아웃폼 지정, 로그아웃시 세션 무효화설정 -->
+	<security:logout logout-url="/customLogout" invalidate-session="true"/>
+</security:http>
+
+<security:authentication-manager>
+	<security:authentication-provider user-service-ref="customUserDetailsService">
+		
+		<security:password-encoder ref="bcryptPasswordEncoder"/>
+
+	</security:authentication-provider>
+</security:authentication-manager>
+
+</beans>
+
+ 		

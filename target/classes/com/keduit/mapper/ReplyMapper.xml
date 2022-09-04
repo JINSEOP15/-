@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.keduit.mapper.ReplyMapper">
+
+					<!-- ==========등록 부분========== -->
+	<insert id="companyVal_Insert">
+		insert into CompanyVal_reply_TB(rno, bno, reply, userid)
+		values (seq_CompanyVal_reply.nextval, #{bno}, #{reply}, #{userid})
+	</insert>
+	<insert id="interviewAns_Insert">
+		insert into InterviewAns_reply_TB(rno, bno, reply, userid)
+		values (seq_InterviewAns_reply.nextval, #{bno}, #{reply}, #{userid})
+	</insert>
+	<insert id="passLatter_Insert">
+		insert into Passlatter_reply_TB(rno, bno, reply, userid)
+		values (seq_Passlatter_reply.nextval, #{bno}, #{reply}, #{userid})
+	</insert>
+	<insert id="worryQnA_Insert">
+		insert into WorryQnA_reply_TB(rno, bno, reply, userid)
+		values (seq_WorryQnA_reply.nextval, #{bno}, #{reply}, #{userid})
+	</insert>
+	<insert id="passSelfIntroduct_Insert">
+		insert into PassSelfIntroduct_reply_TB(rno, bno, reply, userid)
+		values (seq_PassSelfIntroduct_reply.nextval, #{bno}, #{reply}, #{userid})
+	</insert>
+	
+	
+					<!--  ==========read 부분========== -->
+	<select id="companyVal_Read" resultType="com.keduit.domain.ReplyVO">
+		select * from CompanyVal_reply_TB where rno = #{rno}
+	</select>
+	<select id="interviewAns_Read" resultType="com.keduit.domain.ReplyVO">
+		select * from InterviewAns_reply_TB where rno = #{rno}
+	</select>
+	<select id="passLatter_Read" resultType="com.keduit.domain.ReplyVO">
+		select * from Passlatter_reply_TB where rno = #{rno}
+	</select>
+	<select id="worryQnA_Read" resultType="com.keduit.domain.ReplyVO">
+		select * from WorryQnA_reply_TB where rno = #{rno}
+	</select>
+	<select id="passSelfIntroduct_Read" resultType="com.keduit.domain.ReplyVO">
+		select * from PassSelfIntroduct_reply_TB where rno = #{rno}
+	</select>
+	
+	
+					<!-- ==========페이징처리 부분========== -->
+	<select id="companyValPaging" resultType="com.keduit.domain.ReplyVO">
+	<![CDATA[
+		select rno, bno, reply, userid, regdate
+		from (
+			select /*INDEX(CompanyVal_reply_TB COMPANYVAL_REPLY_RNO)*/
+			rownum rn, bno, rno, reply, userid, regdate
+			from CompanyVal_reply_TB
+			where bno = #{bno} and rno > 0 and rownum <= #{cri.pageNum} * #{cri.amount} 
+		)
+		where rn > (#{cri.pageNum}-1) * #{cri.amount}
+	]]>
+	</select>
+		<select id="interviewAnsPaging" resultType="com.keduit.domain.ReplyVO">
+	<![CDATA[
+		select rno, bno, reply, userid, regdate
+		from (
+			select /*INDEX(InterviewAns_reply_TB INTERVIEWANS_REPLY_RNO)*/
+			rownum rn, bno, rno, reply, userid, regdate
+			from InterviewAns_reply_TB
+			where bno = #{bno} and rno > 0 and rownum <= #{cri.pageNum} * #{cri.amount} 
+		)
+		where rn > (#{cri.pageNum}-1) * #{cri.amount}
+	]]>
+	</select>
+		<select id="passLatterPaging" resultType="com.keduit.domain.ReplyVO">
+	<![CDATA[
+		select rno, bno, reply, userid, regdate
+		from (
+			select /*INDEX(Passlatter_reply_TB PASSLATTER_REPLY_RNO)*/
+			rownum rn, bno, rno, reply, userid, regdate
+			from Passlatter_reply_TB
+			where bno = #{bno} and rno > 0 and rownum <= #{cri.pageNum} * #{cri.amount} 
+		)
+		where rn > (#{cri.pageNum}-1) * #{cri.amount}
+	]]>
+	</select>
+		<select id="worryQnAPaging" resultType="com.keduit.domain.ReplyVO">
+	<![CDATA[
+		select rno, bno, reply, userid, regdate
+		from (
+			select /*INDEX(WorryQnA_reply_TB WORRYQNA_REPLY_RNO)*/
+			rownum rn, bno, rno, reply, userid, regdate
+			from WorryQnA_reply_TB
+			where bno = #{bno} and rno > 0 and rownum <= #{cri.pageNum} * #{cri.amount} 
+		)
+		where rn > (#{cri.pageNum}-1) * #{cri.amount}
+	]]>
+	</select>
+		<select id="passSelfIntroductPaging" resultType="com.keduit.domain.ReplyVO">
+	<![CDATA[
+		select rno, bno, reply, userid, regdate
+		from (
+			select /*INDEX(PassSelfIntroduct_reply_TB PASSSELFINTRODUCT_REPLY_RNO)*/
+			rownum rn, bno, rno, reply, userid, regdate
+			from PassSelfIntroduct_reply_TB
+			where bno = #{bno} and rno > 0 and rownum <= #{cri.pageNum} * #{cri.amount} 
+		)
+		where rn > (#{cri.pageNum}-1) * #{cri.amount}
+	]]>
+	</select>
+	
+	
+					<!-- 특정 게시글에 달린 댓글의 개수 -->
+	<select id="companyValCount" resultType="int">
+		select count(rno) from CompanyVal_reply_TB where bno = #{bno}
+	</select>
+	<select id="interviewAnsCount" resultType="int">
+		select count(rno) from InterviewAns_reply_TB where bno = #{bno}
+	</select>
+	<select id="passLatterCount" resultType="int">
+		select count(rno) from Passlatter_reply_TB where bno = #{bno}
+	</select>
+	<select id="worryQnACount" resultType="int">
+		select count(rno) from WorryQnA_reply_TB where bno = #{bno}
+	</select>
+	<select id="passSelfIntroductCount" resultType="int">
+		select count(rno) from PassSelfIntroduct_reply_TB where bno = #{bno}
+	</select>
+	
+	
+					<!-- 댓글 삭제 -->
+	<delete id="companyVal_Delete">
+		delete from CompanyVal_reply_TB where rno = #{rno}
+	</delete>
+	<delete id="interviewAns_Delete">
+		delete from InterviewAns_reply_TB where rno = #{rno}
+	</delete>
+	<delete id="passLatter_Delete">
+		delete from Passlatter_reply_TB where rno = #{rno}
+	</delete>
+	<delete id="worryQnA_Delete">
+		delete from WorryQnA_reply_TB where rno = #{rno}
+	</delete>
+	<delete id="passSelfIntroduct_Delete">
+		delete from PassSelfIntroduct_reply_TB where rno = #{rno}
+	</delete>
+	
+	
+					<!-- 댓글 수정 -->
+	<update id="companyVal_Update">
+		update CompanyVal_reply_TB set reply = #{reply}, regdate = sysdate
+		where rno = #{rno}
+	</update>
+	<update id="interviewAns_Update">
+		update InterviewAns_reply_TB set reply = #{reply}, regdate = sysdate
+		where rno = #{rno}
+	</update>
+	<update id="passLatter_Update">
+		update Passlatter_reply_TB set reply = #{reply}, regdate = sysdate
+		where rno = #{rno}
+	</update>
+	<update id="worryQnA_Update">
+		update WorryQnA_reply_TB set reply = #{reply}, regdate = sysdate
+		where rno = #{rno}
+	</update>
+	<update id="passSelfIntroduct_Update">
+		update PassSelfIntroduct_reply_TB set reply = #{reply}, regdate = sysdate
+		where rno = #{rno}
+	</update>
+	
+</mapper>

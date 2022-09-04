@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTO Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  <mapper namespace="com.keduit.mapper.AskMapper">
+  
+  <insert id="insertAsk">
+  insert into Ask_TB(bno, title, content, userid, category)
+  values(seq_Ask.nextval, #{title}, #{content}, #{userid},#{category})
+  </insert>
+  
+  <select id="getAskList" resultType="com.keduit.domain.AskVO">
+	select * from Ask_TB where userid=#{userid} order by regdate desc 
+  </select>
+  
+   <select id="selectAsk" resultType="com.keduit.domain.AskVO">
+  	select bno,title,content,userid,regdate,category  from Ask_TB where bno = #{bno}
+  </select>
+  
+  <update id="updateAsk">
+	update Ask_TB
+  	set title = #{title}, content = #{content}, userid = #{userid}
+  	where bno = #{bno}
+  </update>
+  
+  <delete id="deleteAsk">
+	delete from Ask_TB where bno = #{bno}
+  </delete>
+  
+   <select id="getTotalAskList" resultType="com.keduit.domain.AskVO">
+	select * from Ask_TB order by bno desc 
+  </select>
+  
+    <insert id="insert">
+  		insert into Ask_reply_TB(rno, bno, reply, userid) 
+  		values(seq_Ask_reply.nextval, #{bno}, #{reply}, #{userid})
+  	</insert>
+  	
+  	<select id="getReplyList" resultType="com.keduit.domain.ReplyVO">
+	select rno, bno, reply, userid, regdate 
+	from Ask_reply_TB
+ 	where bno = #{bno} order by rno asc 
+    </select>
+  	
+  	<delete id="deleteReply">
+  		delete from Ask_reply_TB where rno = #{rno}
+  	</delete>
+  	
+   	<select id="readReply" resultType="com.keduit.domain.ReplyVO">
+  	  select * from Ask_reply_TB where rno = #{rno}
+  	</select> 	
+  	
+  	<update id="updateReply">
+  	   update Ask_reply_TB set reply = #{reply} where rno = #{rno}
+  	</update>
+  
+  </mapper>
